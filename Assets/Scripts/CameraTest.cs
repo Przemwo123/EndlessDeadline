@@ -42,7 +42,7 @@ public class CameraTest : MonoBehaviour
 
         if (playerVelocity.y > 2)
         {
-            virtualVector2.y = player.position.y + 1f;
+            virtualVector2.y = player.position.y + 0.25f;
         }
         else
         {
@@ -52,7 +52,7 @@ public class CameraTest : MonoBehaviour
 
     private void FixedUpdate()
     {
-        temp = Mathf.Lerp(temp, 8, 6 * Time.deltaTime);
+        temp = Mathf.Lerp(temp, 6, 6 * Time.deltaTime);
         newCameraVector2 = Vector2.Lerp(newCameraVector2, virtualVector2, temp * Time.deltaTime);
         transform.position = new Vector3(newCameraVector2.x, newCameraVector2.y,transform.position.z);
     }

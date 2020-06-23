@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
     private bool canJump;
     private bool canMove = true;
     private bool canFlip = true;
-    private float groundCheckRadius = 0.25f;
+    private float groundCheckRadius = 0.1f;
 
     private Rigidbody2D rb;
     //private Animator anim;

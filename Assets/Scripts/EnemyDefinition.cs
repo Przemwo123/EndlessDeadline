@@ -140,7 +140,7 @@ public class EnemyDefinition : MonoBehaviour
     protected virtual void EnterDeadState()
     {
         if (_visibleTarget != null) _visibleTarget = null;
-        Debug.Log(enemyStats.nameEnemy + " died");
+        Destroy(gameObject);
     }
 
     protected virtual void UpdateDeadState()
@@ -246,7 +246,6 @@ public class EnemyDefinition : MonoBehaviour
                 if (!Physics2D.Raycast(transform.position, dirToTarget, dstToTarget, obstacleMask) && _visibleTarget == null)
                 {
                     _visibleTarget = target;
-                    //SwitchState(State.VisibleTarget);
                 }else if (Physics2D.Raycast(transform.position, dirToTarget, dstToTarget, obstacleMask))
                 {
                     _visibleTarget = null;
@@ -300,9 +299,9 @@ public class EnemyDefinition : MonoBehaviour
         Gizmos.DrawLine(_groundCheck.position, new Vector2(_groundCheck.position.x, _groundCheck.position.y - _groundCheckDistance));
         Gizmos.DrawLine(_wallCheck.position, new Vector2(_wallCheck.position.x + _wallCheckDistance, _wallCheck.position.y));
 
-        Handles.color = new Color(0, 0, 0, 0.05f);
+        /*Handles.color = new Color(0, 0, 0, 0.05f);
         if(Application.isPlaying) Handles.DrawSolidDisc(enemyStats.startingPoint, Vector3.back, enemyStats.maxWalkingDistance);
-        else Handles.DrawSolidDisc(this.transform.position, Vector3.back, enemyStats.maxWalkingDistance);
+        else Handles.DrawSolidDisc(this.transform.position, Vector3.back, enemyStats.maxWalkingDistance);*/
         
         //kąt i zasięg widzenia
         if (!Application.isPlaying)
@@ -316,11 +315,11 @@ public class EnemyDefinition : MonoBehaviour
 
         Vector3 endpoint = transform.position + (Quaternion.Euler(0, 0, enemyStats.viewAngle * 0.5f) * forward);
 
-        Handles.color = new Color(0, 1.0f, 0, 0.2f);
-        Handles.DrawSolidArc(transform.position, -Vector3.forward, (endpoint - transform.position).normalized, enemyStats.viewAngle, enemyStats.viewDistance);
+        /*Handles.color = new Color(0, 1.0f, 0, 0.2f);
+        Handles.DrawSolidArc(transform.position, -Vector3.forward, (endpoint - transform.position).normalized, enemyStats.viewAngle, enemyStats.viewDistance);*/
 
-        Handles.color = Color.red;
+        Gizmos.color = Color.red;
         if (_visibleTarget != null)
-            Handles.DrawLine(transform.position, _visibleTarget.position);
+            Gizmos.DrawLine(transform.position, _visibleTarget.position);
     }
 }
