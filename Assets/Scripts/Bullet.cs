@@ -27,18 +27,24 @@ public class Bullet : MonoBehaviour
         switch (collision.tag)
         {
             case "Enemy":
-                Instantiate(effect[0], transform.position, transform.rotation);
-                float[] temp = new float[3];
-                temp[0] = damage;//obrażenia
-                temp[1] = 1;//Czy ma być odrzut 1-tak, 0-nie
-                temp[2] = GameObject.Find("Player").transform.position.x;//Pozycja gracza
-                collision.SendMessage("TakeDamage", temp);
-                Destroy(gameObject);
-                return;
+            case "ObjectDestroy":
+                DealDamage(collision);
+                break;
             default:
                 Instantiate(effect[1], transform.position, transform.rotation);
-                Destroy(gameObject);
-                return;
+                break;
         }
+
+        Destroy(gameObject);
+    }
+
+    private void DealDamage(Collider2D collision)
+    {
+        Instantiate(effect[0], transform.position, transform.rotation);
+        float[] temp = new float[3];
+        temp[0] = damage;//obrażenia
+        temp[1] = 1;//Czy ma być odrzut 1-tak, 0-nie
+        temp[2] = GameObject.Find("Player").transform.position.x;//Pozycja gracza
+        collision.SendMessage("TakeDamage", temp);
     }
 }

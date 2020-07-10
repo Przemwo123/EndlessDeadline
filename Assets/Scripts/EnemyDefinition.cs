@@ -296,8 +296,10 @@ public class EnemyDefinition : MonoBehaviour
     //------ Funkcja UnityEditor odpowiedzialna za wyświetlanie linii pomocniczych ------
     private void OnDrawGizmosSelected()
     {
-        Gizmos.DrawLine(_groundCheck.position, new Vector2(_groundCheck.position.x, _groundCheck.position.y - _groundCheckDistance));
-        Gizmos.DrawLine(_wallCheck.position, new Vector2(_wallCheck.position.x + _wallCheckDistance, _wallCheck.position.y));
+        if(_groundCheck != null)
+            Gizmos.DrawLine(_groundCheck.position, new Vector2(_groundCheck.position.x, _groundCheck.position.y - _groundCheckDistance));
+        if (_wallCheck != null)
+            Gizmos.DrawLine(_wallCheck.position, new Vector2(_wallCheck.position.x + _wallCheckDistance, _wallCheck.position.y));
 
         /*Handles.color = new Color(0, 0, 0, 0.05f);
         if(Application.isPlaying) Handles.DrawSolidDisc(enemyStats.startingPoint, Vector3.back, enemyStats.maxWalkingDistance);

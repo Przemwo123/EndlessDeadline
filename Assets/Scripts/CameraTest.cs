@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraTest : MonoBehaviour
 {
-    private Transform player;
+    public Transform player;
     private PlayerController playerController;
     private Rigidbody2D playerRigidbody2D;
     private Vector2 newCameraVector2;
@@ -15,9 +15,12 @@ public class CameraTest : MonoBehaviour
 
     private void Start()
     {
-        player = GameObject.Find("Player").transform;
+        if (player == null)
+            player = GameObject.Find("Player").transform;
         playerController = player.GetComponent<PlayerController>();
         playerRigidbody2D = player.GetComponent<Rigidbody2D>();
+        newCameraVector2 = player.transform.position;
+        transform.position = new Vector3(newCameraVector2.x, newCameraVector2.y, transform.position.z);
     }
 
     private void Update()
@@ -59,8 +62,19 @@ public class CameraTest : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireSphere(virtualVector2, 0.2f);
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(newCameraVector2, 0.2f);
+        if (player != null)
+        {
+            if (!Application.isPlaying)
+            {
+                virtualVector2 = player.transform.position;
+                virtualVector2.x = player.position.x + 2.5f;
+                newCameraVector2 = player.transform.position;
+                //transform.position = virtualVector2;
+            }
+
+            Gizmos.DrawWireSphere(virtualVector2, 0.2f);
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(newCameraVector2, 0.2f);
+        }
     }
 }
