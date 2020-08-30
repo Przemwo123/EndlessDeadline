@@ -26,7 +26,6 @@ public class InteractiveObjects : MonoBehaviour
     protected Rigidbody2D _rigidbody2D;
 
     private int _damageDirection;
-    private bool isKnockback;
     private float _knockbackStartTime;
 
     protected virtual void Awake()
@@ -67,11 +66,9 @@ public class InteractiveObjects : MonoBehaviour
     //------ Funkcja odpowiedzialna za Odrzut ------
     IEnumerator UpdateKnockbackState()
     {
-        isKnockback = true;
         _knockbackStartTime = Time.time;
         _rigidbody2D.velocity = new Vector2(_damageDirection, _rigidbody2D.velocity.y);
         yield return new WaitForSeconds(0.1f);
-        isKnockback = false;
     }
 
     //------ Funkcje odpowiedzialne za śmierć ------

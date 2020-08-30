@@ -29,12 +29,12 @@ public class PlayerController : MonoBehaviour
     private float groundCheckRadius = 0.1f;
 
     private Rigidbody2D rb;
-    //private Animator anim;
+    private Animator anim;
     
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        //anim = GetComponent<Animator>();
+        anim = GetComponent<Animator>();
         amountOfJumpsLeft = amountOfJumps;
     }
     
@@ -81,6 +81,8 @@ public class PlayerController : MonoBehaviour
     private void CheckInput()
     {
         movementInputDirection = Input.GetAxisRaw("Horizontal");
+
+        anim.SetFloat("Speed", Mathf.Abs(movementInputDirection));
 
         if (Input.GetButtonDown("Jump"))
         {
@@ -184,5 +186,10 @@ public class PlayerController : MonoBehaviour
     public bool GetIsWalking()
     {
         return isWalking;
+    }
+
+    public bool GetIsGrounded()
+    {
+        return isGrounded;
     }
 }

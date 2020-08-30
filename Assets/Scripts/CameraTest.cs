@@ -5,6 +5,7 @@ using UnityEngine;
 public class CameraTest : MonoBehaviour
 {
     public Transform player;
+    public float distanceCameraPositionX = 3.5f;
     private PlayerController playerController;
     private Rigidbody2D playerRigidbody2D;
     private Vector2 newCameraVector2;
@@ -12,6 +13,7 @@ public class CameraTest : MonoBehaviour
     private Vector2 playerVelocity;
     private float temp;
     private bool flipPlayer;
+    private bool IsDelayFlip = false;
 
     private void Start()
     {
@@ -28,36 +30,42 @@ public class CameraTest : MonoBehaviour
         playerVelocity = playerRigidbody2D.velocity;
 
 
+        if (flipPlayer != playerController.GetIsFacingRight() && !IsDelayFlip)
+        {
+            IsDelayFlip = true;
+            StartCoroutine("Delayflip");
+        }
+
+        if (flipPlayer == true)
+        {
+            virtualVector2.x = player.position.x + distanceCameraPositionX;
+        }
+        else
+        {
+            virtualVector2.x = player.position.x - distanceCameraPositionX;
+        }
+
+        virtualVector2.y = player.position.y;
+    }
+
+    IEnumerator Delayflip()
+    {
+        yield return new WaitForSeconds(0.05f);
+
         if (flipPlayer != playerController.GetIsFacingRight())
         {
-            flipPlayer = playerController.GetIsFacingRight();
+            flipPlayer = !flipPlayer;
             temp = 0;
         }
 
-        if (playerController.GetIsFacingRight())
-        {
-            virtualVector2.x = player.position.x + 2.5f;
-        }
-        else
-        {
-            virtualVector2.x = player.position.x - 2.5f;
-        }
-
-        if (playerVelocity.y > 2)
-        {
-            virtualVector2.y = player.position.y + 0.25f;
-        }
-        else
-        {
-            virtualVector2.y = player.position.y;
-        }
+        IsDelayFlip = false;
     }
 
     private void FixedUpdate()
     {
-        temp = Mathf.Lerp(temp, 6, 6 * Time.deltaTime);
+        temp = Mathf.Lerp(temp, 6, 3 * Time.deltaTime);
         newCameraVector2 = Vector2.Lerp(newCameraVector2, virtualVector2, temp * Time.deltaTime);
-        transform.position = new Vector3(newCameraVector2.x, newCameraVector2.y,transform.position.z);
+        transform.position = new Vector3(newCameraVector2.x, newCameraVector2.y, transform.position.z);
     }
 
     private void OnDrawGizmos()
@@ -67,9 +75,8 @@ public class CameraTest : MonoBehaviour
             if (!Application.isPlaying)
             {
                 virtualVector2 = player.transform.position;
-                virtualVector2.x = player.position.x + 2.5f;
+                virtualVector2.x = player.position.x + distanceCameraPositionX;
                 newCameraVector2 = player.transform.position;
-                //transform.position = virtualVector2;
             }
 
             Gizmos.DrawWireSphere(virtualVector2, 0.2f);
