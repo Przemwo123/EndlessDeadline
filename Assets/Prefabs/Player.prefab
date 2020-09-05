@@ -159,7 +159,7 @@ MonoBehaviour:
   firePoint: {fileID: 2809828410833424384}
   bullet: {fileID: 2574929119916174018, guid: b14055a83cb341048ac719fc718773d0, type: 3}
   damageAttackMelee: 2
-  delayAttackMelee: 0.5
+  delayAttackMelee: 0.35
   attackRange: {x: 1, y: 0.5}
   attackPoint: {fileID: 1058818947}
   _enemyLayer:

@@ -23,7 +23,7 @@ public class PigTest : InteractiveObjects
     protected virtual void Flip()
     {
         _isViewLeft = !_isViewLeft;
-        Vector3 _setFlip = new Vector3((_isViewLeft ? -1: 1), 1, 1);
+        Vector3 _setFlip = new Vector3((_isViewLeft ? 1: -1), 1, 1);
         this.transform.localScale = _setFlip;
     }
 }

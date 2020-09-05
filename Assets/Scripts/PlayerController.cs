@@ -82,7 +82,7 @@ public class PlayerController : MonoBehaviour
     {
         movementInputDirection = Input.GetAxisRaw("Horizontal");
 
-        anim.SetFloat("Speed", Mathf.Abs(movementInputDirection));
+        anim.SetFloat("Speed", Mathf.Abs(rb.velocity.magnitude));
 
         if (Input.GetButtonDown("Jump"))
         {
