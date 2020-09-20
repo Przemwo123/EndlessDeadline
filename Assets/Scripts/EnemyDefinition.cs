@@ -36,6 +36,7 @@ public class EnemyDefinition : MonoBehaviour
     public LayerMask targetMask;
     public LayerMask obstacleMask;
     public Transform feetPos;
+    public GameObject DeathSound;
 
     private float
         _groundCheckDistance = 1.0f,
@@ -140,6 +141,7 @@ public class EnemyDefinition : MonoBehaviour
     protected virtual void EnterDeadState()
     {
         if (_visibleTarget != null) _visibleTarget = null;
+        Instantiate(DeathSound, transform.position, transform.rotation);
         Destroy(gameObject);
     }
 

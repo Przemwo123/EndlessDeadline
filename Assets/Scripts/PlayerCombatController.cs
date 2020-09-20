@@ -20,6 +20,7 @@ public class PlayerCombatController : MonoBehaviour
     public Transform[] effect;
 
     public GameObject meleeSound;
+    public GameObject HitEnemySound;
 
     void Update()
     {
@@ -47,6 +48,7 @@ public class PlayerCombatController : MonoBehaviour
 
         foreach (Collider2D enemy in hitEnemies)
         {
+            Instantiate(HitEnemySound, transform.position, transform.rotation);
             Instantiate(effect[0], enemy.transform.position, enemy.transform.rotation);
             float[] temp = new float[3];
             temp[0] = damageAttackMelee;//obrażenia

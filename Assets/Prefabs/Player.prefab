@@ -169,6 +169,8 @@ MonoBehaviour:
   - {fileID: 7023476402355920652, guid: 6396ddc0a0970c74690791f4fad908e6, type: 3}
   meleeSound: {fileID: 7323134297943746837, guid: 1add64eea749f184ea8b6be056e059e7,
     type: 3}
+  HitEnemySound: {fileID: 7323134297943746837, guid: ca0201b2b410ebf4ebfbefd872437f32,
+    type: 3}
 --- !u!70 &121337876828976215
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

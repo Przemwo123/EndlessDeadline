@@ -5,6 +5,8 @@ using System;
 
 public class InteractiveObjects : MonoBehaviour
 {
+    public GameObject DeathSound;
+
     protected enum State
     {
         Sleep,
@@ -74,6 +76,7 @@ public class InteractiveObjects : MonoBehaviour
     //------ Funkcje odpowiedzialne za śmierć ------
     protected virtual void EnterDeadState()
     {
+        Instantiate(DeathSound, transform.position, transform.rotation);
         Destroy(gameObject);
     }
 

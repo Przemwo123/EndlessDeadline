@@ -8,6 +8,7 @@ public class Bullet : MonoBehaviour
     public float speed = 100;
     public float damage = 1;
     public Transform[] effect;
+    public GameObject HitEnemySound;
 
     private void FixedUpdate()
     {
@@ -40,6 +41,7 @@ public class Bullet : MonoBehaviour
 
     private void DealDamage(Collider2D collision)
     {
+        Instantiate(HitEnemySound, transform.position, transform.rotation);
         Instantiate(effect[0], transform.position, transform.rotation);
         float[] temp = new float[3];
         temp[0] = damage;//obrażenia

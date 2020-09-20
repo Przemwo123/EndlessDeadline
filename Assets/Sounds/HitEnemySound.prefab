@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 9043856924801167511}
   - component: {fileID: 399900377297976914}
   m_Layer: 0
-  m_Name: AttackMeleeSound
+  m_Name: HitEnemySound
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -54,9 +54,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: edf2aaf7eaaa2e84d8e29a1a3d03faf2, type: 3}
+  m_audioClip: {fileID: 8300000, guid: d0a03b47aa2a35a40ab561ae339476fe, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.125
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
