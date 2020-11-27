@@ -22,6 +22,13 @@ public class PlayerCombatController : MonoBehaviour
     public GameObject meleeSound;
     public GameObject HitEnemySound;
 
+    private Animator animator;
+
+    private void Awake()
+    {
+        animator = GetComponent<Animator>();
+    }
+
     void Update()
     {
         if (Input.GetMouseButtonDown(0) && !isAttacking)
@@ -38,9 +45,11 @@ public class PlayerCombatController : MonoBehaviour
     //------ Light Attack --------
     IEnumerator AttackMelee()
     {
+        animator.SetBool("IsSwordAttack", isAttacking);
 
-        //miejsce na trigger animacji lekkiego ataku
-        //_audioMenager.Play(soundName);
+        
+
+        yield return new WaitForSeconds(delayAttackMelee/2);
 
         Instantiate(meleeSound, transform.position, transform.rotation);
 
@@ -61,7 +70,9 @@ public class PlayerCombatController : MonoBehaviour
 
         //------------------------------------------------//
         isAttacking = false;
+        animator.SetBool("IsSwordAttack", isAttacking);
     }
+
 
     //------Rysowanie zasiegu ataku------
     private void OnDrawGizmos()//Selected

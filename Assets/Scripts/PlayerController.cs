@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     public LayerMask whatIsGround;
 
     private float movementInputDirection;
-
+    private float _currentSpeed;
     private int amountOfJumpsLeft;
 
     private bool isFacingRight = true;
@@ -74,7 +74,6 @@ public class PlayerController : MonoBehaviour
         {
             canJump = true;
         }
-
     }
 
     //------ Funkcje odpowiedzialne za sterowanie ------
@@ -82,7 +81,7 @@ public class PlayerController : MonoBehaviour
     {
         movementInputDirection = Input.GetAxisRaw("Horizontal");
 
-        anim.SetFloat("Speed", Mathf.Abs(rb.velocity.magnitude));
+        _currentSpeed = Mathf.MoveTowards(_currentSpeed, movementInputDirection * movementSpeed, 25 * Time.deltaTime);
 
         if (Input.GetButtonDown("Jump"))
         {
@@ -94,7 +93,6 @@ public class PlayerController : MonoBehaviour
 
         if (checkJumpMultiplier && !Input.GetButton("Jump"))
         {
-
             checkJumpMultiplier = false;
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * variableJumpHeightMultiplier);
         }
@@ -114,14 +112,13 @@ public class PlayerController : MonoBehaviour
     //------ Funkcje odpowiedzialne za poruszanie się ------
     private void UpdateMovingState()
     {
-
         if (!isGrounded && movementInputDirection == 0)
         {
             rb.velocity = new Vector2(rb.velocity.x * airDragMultiplier, rb.velocity.y);
         }
         else if (canMove)
         {
-            rb.velocity = new Vector2(movementSpeed * movementInputDirection, rb.velocity.y);
+            rb.velocity = new Vector2(_currentSpeed, rb.velocity.y);
         }
     }
 
@@ -173,9 +170,7 @@ public class PlayerController : MonoBehaviour
     //------ Funkcje odpowiedzialna za animacje ------
     private void UpdateAnimations()
     {
-        //anim.SetBool("isWalking", isWalking);
-        //anim.SetBool("isGrounded", isGrounded);
-        //anim.SetFloat("yVelocity", rb.velocity.y);
+        anim.SetFloat("Speed", Mathf.Abs(rb.velocity.magnitude));
     }
 
     public bool GetIsFacingRight()
